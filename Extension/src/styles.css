@@ -1,0 +1,18 @@
+button.tagscanner {
+	background: none;
+	border: none;
+	font-size: 0.8em;
+	cursor: pointer;
+	flex-shrink: 0;
+	position: relative;
+	top: 0.3em;
+}
+
+button.tagscanner .icon {
+	margin-right: 3px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACKElEQVQ4jZWRS2sTYRiFzyRzdcwMdVrbqbSQxForgmRw0UVqHdJkU/GyEQXjvohbNxIU+xvE36BdKF24EFp60yrFFkKNog1MYzJBUtu0xkmTL5nPVaXghMZndTbn4by8DA5hRCKX4vH43Y4TWrharZaWFheez8zOvgTgogXMQUgmk49u3b7zWOvqgSRJqBOCne0SFudmXk1OTt4EQLwEfgAYHh6+MXHv/rPwwBBCwX4oSgCdWgdkWUFAUc/uO79IJpNZ8BL4AMA0zYm+/iC6OjuwtV3GTnkPWz93IYkCQsEwYrH4BADVUyDLck8wFB7UNA37tToCsgRVOQ5VOQZCGhBEAacHzuihUOi8l4AlhNCuTq3J+v0QRR4Cz8Ln84FSCpZl4VRr6O4+iVqt1vRcUK/Xf6TT6TWBZyEKPHiOA8+x4DkWkihAEnhkPq1/KRQK660+AV3XLy+/WyaV3w49jFPdp982NqhhGMlWXT8AVCoVa35+frO3V4+qqioTQlAu7+Lt0uLe2uqqm81mP1uWNddywQE8z58zDOPB+Pj402g0+oTjuIuRSOTh1NQUNU3zI4ChIyUesKZpfkilUnRkZCQP4MI/JxyBm8/nvxJCErFY7BTDMFcty5oGsN2uAK7rbtq2/b7RaFwZHR3VXde9nsvl3gAotSUAAErpd9u2VwghY4lEog/AmGVZL9oWHCwpFosrzWbzmuM4r23bnv6f/l8YhhkEEACAP1dh4d9VzhkJAAAAAElFTkSuQmCC) no-repeat;
+}

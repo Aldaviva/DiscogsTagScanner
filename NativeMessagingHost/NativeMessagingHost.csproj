@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="chromiumNativeMessagingHostManifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App" /> <!-- UseWindowsForms is insufficient to refer to UIAutomationClient -->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="mwinapi" Version="0.3.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Foregrounder">
+	    <HintPath>..\..\Foregrounder\Foregrounder\bin\Debug\netcoreapp3.1\Foregrounder.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

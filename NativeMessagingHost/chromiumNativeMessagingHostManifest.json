@@ -1,0 +1,9 @@
+﻿{
+	"name": "com.aldaviva.tagscanner.discogs",
+	"description": "TagScanner Discogs",
+	"path": "c:\\Users\\Ben\\Documents\\Projects\\DiscogsTagScanner\\NativeMessagingHost\\bin\\Debug\\net6.0-windows\\NativeMessagingHost.exe",
+	"type": "stdio",
+	"allowed_origins": [
+		"chrome-extension://eokhcjeakpgiplhgpdbcpgijnoofanjp/"
+	]
+}
