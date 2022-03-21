@@ -1,73 +1,45 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Microsoft.Win32;
+﻿using System.Windows.Forms;
 using NativeMessagingHost;
 using NativeMessagingHost.Messages;
 
-/*using TagScannerController controller = new();
-controller.searchForOnlineRelease(OnlineMetadataService.DISCOGS, "456");
-return 0;*/
-
-const string ALLOWED_SENDER   = "chrome-extension://eokhcjeakpgiplhgpdbcpgijnoofanjp/";
-const string INSTALLATION_KEY = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TagScanner_is1";
-
-JsonSerializerOptions jsonOptions = new() { Converters = { new JsonStringEnumConverter() } };
-
-using Stream stdin  = Console.OpenStandardInput();
-using Stream stdout = Console.OpenStandardOutput();
+const string APPLICATION_NAME        = "com.aldaviva.tagscanner.discogs";
+const string APPLICATION_DESCRIPTION = "TagScanner Discogs";
+const string ALLOWED_SENDER          = "chrome-extension://eokhcjeakpgiplhgpdbcpgijnoofanjp/";
 
 string? errorMessage = null;
 try {
-    string? sender = Environment.GetCommandLineArgs().ElementAtOrDefault(1);
-    if (sender != ALLOWED_SENDER) {
-        throw new BrowserMarshalException($"Wrong sender, expected {ALLOWED_SENDER}, but got {sender ?? "null"}");
+    switch (MessagingHost.getLaunchMode(ALLOWED_SENDER)) {
+        case MessagingHost.LaunchMode.MANUAL:
+            await MessagingHost.install(APPLICATION_NAME, APPLICATION_DESCRIPTION, ALLOWED_SENDER);
+            MessageBox.Show("Installed Native Messaging Host into Chromium.", "DiscogsTagScanner", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return 0;
+        case MessagingHost.LaunchMode.DISALLOWED_SENDER:
+            throw new BrowserMarshalException($"Wrong sender, expected {ALLOWED_SENDER}");
+        case MessagingHost.LaunchMode.ALLOWED_SENDER:
+            //continue program
+            break;
+        default:
+            throw new ArgumentOutOfRangeException("Unknown LaunchMode", (Exception?) null);
     }
 
-    byte[] lengthBuffer = new byte[4];
-    int    readBytes    = stdin.Read(lengthBuffer, 0, lengthBuffer.Length);
-    if (readBytes != lengthBuffer.Length) {
-        throw new BrowserMarshalException($"Only read {readBytes} bytes, not {lengthBuffer.Length}, while getting JSON length, exiting.");
-    }
+    ExtensionRequest request = MessagingHost.readInputFromBrowser<ExtensionRequest>();
 
-    uint       inputLength = BitConverter.ToUInt32(lengthBuffer, 0);
-    Span<byte> jsonInput   = new(new byte[inputLength]);
-    readBytes = stdin.Read(jsonInput);
-
+    TagScannerController tagScannerController;
     try {
-        ExtensionRequest request = (ExtensionRequest) JsonSerializer.Deserialize(jsonInput[..readBytes], typeof(ExtensionRequest), jsonOptions)!;
+        tagScannerController = new TagScannerController();
+    } catch (WindowNotFoundException) {
+        TagScannerController.launch();
 
-        TagScannerController tagScannerController;
-        try {
-            tagScannerController = new TagScannerController();
-        } catch (WindowNotFoundException) {
-            if (Registry.GetValue(INSTALLATION_KEY, "DisplayIcon", null) is string tagScannerAbsolutePath && File.Exists(tagScannerAbsolutePath)) {
-                try {
-                    Process.Start(tagScannerAbsolutePath);
-                } catch (Win32Exception e) {
-                    throw new StartException("TagScanner was not already running, and it could not be started by running " + tagScannerAbsolutePath, e);
-                }
-
-                Thread.Sleep(3000);
-                //retry once after launching
-                tagScannerController = new TagScannerController();
-            } else {
-                throw new StartException("TagScanner was not already running, and could not find installation directory in registry key " + INSTALLATION_KEY);
-            }
-        }
-
-        tagScannerController.searchForOnlineRelease(request.service, request.releaseId);
-    } catch (Exception e) when (e is JsonException or NotSupportedException) {
-        throw new BrowserMarshalException("Failed to parse stdin JSON", e);
+        //retry once after launching
+        Thread.Sleep(3000);
+        tagScannerController = new TagScannerController();
     }
+
+    tagScannerController.searchForOnlineRelease(request.service, request.releaseId);
 } catch (TagScannerException e) {
     errorMessage = string.Join(": ", new[] { e.GetType().Name, e.Message, e.InnerException?.ToString() }.Where(s => s != null));
 }
 
-byte[] responseJsonBytes = JsonSerializer.SerializeToUtf8Bytes(new ExtensionResponse(errorMessage), jsonOptions);
-stdout.Write(BitConverter.GetBytes((uint) responseJsonBytes.Length));
-stdout.Write(responseJsonBytes);
-stdout.Flush();
+MessagingHost.writeOutputToBrowser(new ExtensionResponse(errorMessage));
 
 return errorMessage is null ? 0 : 1;

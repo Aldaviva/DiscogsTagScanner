@@ -1,15 +1,18 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using ManagedWinapi.Windows;
+using Microsoft.Win32;
 
 namespace NativeMessagingHost;
 
 public class TagScannerController {
 
-    private const uint WM_LBUTTONUP   = 0x0202;
-    private const uint WM_LBUTTONDOWN = 0x0201;
-    private const uint MK_LBUTTON     = 0x0001;
+    private const string INSTALLATION_KEY = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TagScanner_is1";
+    private const uint   WM_LBUTTONUP     = 0x0202;
+    private const uint   WM_LBUTTONDOWN   = 0x0201;
+    private const uint   MK_LBUTTON       = 0x0001;
 
     private readonly AutomationElement tMain;
 
@@ -73,6 +76,21 @@ public class TagScannerController {
 
         if (!PostMessage(window, WM_LBUTTONUP, 0, 0)) {
             throw new MessagePostException($"Failed to post WM_LBUTTONUP to {window.ToInt64():X}", new Win32Exception(Marshal.GetLastWin32Error()));
+        }
+    }
+
+    /// <exception cref="StartException"></exception>
+    public static int launch() {
+        // The DisplayIcon value is the absolute path to the EXE, e.g. "C:\Programs\Multimedia\TagScanner\Tagscan.exe"
+        if (Registry.GetValue(INSTALLATION_KEY, "DisplayIcon", null) is string exeAbsolutePath && File.Exists(exeAbsolutePath)) {
+            try {
+                using Process process = Process.Start(exeAbsolutePath);
+                return process.Id;
+            } catch (Win32Exception e) {
+                throw new StartException("TagScanner was not already running, and it could not be started by running " + exeAbsolutePath, e);
+            }
+        } else {
+            throw new StartException("TagScanner was not already running, and could not find installation directory in registry key " + INSTALLATION_KEY);
         }
     }
 

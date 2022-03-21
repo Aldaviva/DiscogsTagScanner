@@ -9,12 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Update="chromiumNativeMessagingHostManifest.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<FrameworkReference Include="Microsoft.WindowsDesktop.App" /> <!-- UseWindowsForms is insufficient to refer to UIAutomationClient -->
 	</ItemGroup>
 
