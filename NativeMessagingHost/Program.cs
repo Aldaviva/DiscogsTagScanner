@@ -49,8 +49,8 @@ try {
                     throw new StartException("TagScanner was not already running, and it could not be started by running " + tagScannerAbsolutePath, e);
                 }
 
-                Thread.Sleep(5000);
-                //retry once after launchingstring? tagScannerAbsolutePath =
+                Thread.Sleep(3000);
+                //retry once after launching
                 tagScannerController = new TagScannerController();
             } else {
                 throw new StartException("TagScanner was not already running, and could not find installation directory in registry key " + INSTALLATION_KEY);

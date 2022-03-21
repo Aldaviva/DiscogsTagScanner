@@ -76,7 +76,7 @@ public class TagScannerController {
         }
     }
 
-    [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    [DllImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
 
