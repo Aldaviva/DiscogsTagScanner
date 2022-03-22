@@ -6,20 +6,32 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<RollForward>major</RollForward>
+		<ApplicationIcon>DiscogsTagScanner.ico</ApplicationIcon>
+		<Copyright>© 2022 Ben Hutchison</Copyright>
+		<Authors>Ben Hutchison</Authors>
+		<AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
+		<Product>DiscogsTagScanner</Product> <!-- Product name -->
+		<Version>0.0.1</Version> <!-- Product version -->
+		<FileVersion>0.0.1.0</FileVersion> <!-- File version -->
 	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="DiscogsTagScanner.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.WindowsDesktop.App" /> <!-- UseWindowsForms is insufficient to refer to UIAutomationClient -->
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="mwinapi" Version="0.3.0.4" />
+		<PackageReference Include="mwinapi" Version="0.3.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Foregrounder">
-	    <HintPath>..\..\Foregrounder\Foregrounder\bin\Debug\netcoreapp3.1\Foregrounder.dll</HintPath>
-	  </Reference>
+		<Reference Include="Foregrounder">
+			<HintPath>..\..\Foregrounder\Foregrounder\bin\Debug\netcoreapp3.1\Foregrounder.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 </Project>
