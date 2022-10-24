@@ -32,7 +32,7 @@ jobs:
       run: choco install vivaldi.portable -y
 
     - name: Write secret key to disk
-      run: Out-File $env:PACK_EXTENSION_PRIVATE_KEY -FilePath .\Extension\PackExtensionPrivateKey.pem -Encoding UTF8
+      run: Out-File '${{ secrets.PACK_EXTENSION_PRIVATE_KEY }}' -FilePath .\Extension\PackExtensionPrivateKey.pem -Encoding UTF8
 
     - name: Pack extension
       run: |
