@@ -11,6 +11,8 @@ jobs:
       ProjectName: NativeMessagingHost
       TargetPlatform: win-x64
 
+    environment: Build
+
     runs-on: windows-latest
 
     steps:
