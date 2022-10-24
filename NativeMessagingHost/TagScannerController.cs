@@ -54,7 +54,7 @@ public class TagScannerController {
         AutomationElement releaseTextBox = findDescendantElementByIndex(onlinePane, 3, 3) ?? throw new ElementNotFound("Could not find release search text box");
         ((ValuePattern) releaseTextBox.GetCurrentPattern(ValuePattern.Pattern)).SetValue(releaseId);
 
-        // Submit search somehow (keyboard enter? some automation thing?)
+        // Submit search
         IntPtr onlineSearchButton = findDescendantElementByIndex(onlinePane, 3, 2)?.toHwnd() ?? throw new ElementNotFound("Could not find online submit button");
         postClick(onlineSearchButton);
     }

@@ -4,7 +4,7 @@ using NativeMessagingHost.Messages;
 
 const string APPLICATION_NAME        = "com.aldaviva.tagscanner.discogs";
 const string APPLICATION_DESCRIPTION = "TagScanner Discogs";
-const string ALLOWED_SENDER          = "chrome-extension://eokhcjeakpgiplhgpdbcpgijnoofanjp/";
+const string ALLOWED_SENDER          = "chrome-extension://gmlloidllimahcoedhmlgcfidpopfhmi/";
 
 string? errorMessage = null;
 try {

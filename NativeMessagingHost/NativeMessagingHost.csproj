@@ -3,10 +3,12 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<RollForward>major</RollForward>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<ApplicationIcon>DiscogsTagScanner.ico</ApplicationIcon>
 		<Copyright>© 2022 Ben Hutchison</Copyright>
 		<Authors>Ben Hutchison</Authors>
@@ -25,13 +27,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="mwinapi" Version="0.3.0.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="Foregrounder">
-			<HintPath>..\..\Foregrounder\Foregrounder\bin\Debug\netcoreapp3.1\Foregrounder.dll</HintPath>
-		</Reference>
+		<PackageReference Include="Foregrounder" Version="0.0.1" />
+		<PackageReference Include="mwinapi" Version="0.3.0.5" />
 	</ItemGroup>
 
 </Project>

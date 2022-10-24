@@ -7,7 +7,7 @@ namespace NativeMessagingHost;
 
 public static class MessagingHost {
 
-    private static readonly JsonSerializerOptions JSON_OPTIONS = new() { Converters = { new JsonStringEnumConverter() } };
+    private static readonly JsonSerializerOptions JSON_OPTIONS = new() { Converters = { new JsonStringEnumConverter() }, WriteIndented = true };
 
     public static LaunchMode getLaunchMode(params string[] allowedSenders) {
         /*
@@ -75,8 +75,6 @@ public static class MessagingHost {
 
     private record NativeMessagingHostManifest(string name, string description, params string[] allowedOrigins) {
 
-        public string name { get; set; } = name;
-        public string description { get; set; } = description;
         public string path { get; set; } = getCurrentExeAbsolutePath();
         public string type => "stdio";
 
