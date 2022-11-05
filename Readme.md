@@ -1,6 +1,8 @@
 <img src="Extension/src/images/24.png" /> DiscogsTagScanner
 ===
 
+[![Build status](https://img.shields.io/github/workflow/status/Aldaviva/DiscogsTagScanner/.NET?logo=github)](https://github.com/Aldaviva/DiscogsTagScanner/actions/workflows/dotnet.yml)
+
 [<img src="https://www.discogs.com/favicon.ico" height="16"/> Discogs](https://www.discogs.com/) is an online database of music release metadata. [<img src="https://www.xdlab.ru/favicon.ico" height="16"/> TagScanner](https://www.xdlab.ru/en/) is a program that edits music file metadata.
 
 This browser extension and native program help you quickly load Discogs releases in TagScanner with one click, without having to manually copy and paste the release ID or name from your browser, or use TagScanner's limited search feature.
