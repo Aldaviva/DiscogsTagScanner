@@ -1,4 +1,4 @@
-<img src="Extension/src/images/24.png" /> DiscogsTagScanner
+<img src="Extension/src/images/24.png" height="24" /> DiscogsTagScanner
 ===
 
 [![Build status](https://img.shields.io/github/workflow/status/Aldaviva/DiscogsTagScanner/.NET?logo=github)](https://github.com/Aldaviva/DiscogsTagScanner/actions/workflows/dotnet.yml)
@@ -25,8 +25,7 @@ This browser extension and native program help you quickly load Discogs releases
 |Discogs||TagScanner|
 |:---:|:---:|:---:|
 |<img src="https://i.imgur.com/ClZodn1.png" />|<h3>&#8680;</h3>|<img src="https://i.imgur.com/x13AyRC.png" />|
-|Click the new **<img src="Extension/src/images/48.png" height="16" /> Send to TagScanner** button||Release loads in Online pane|
-
+|Click the new **<img src="icons/16.png" height="16" /> Send to TagScanner** button||The release loads in the Online pane|
 
 <a id="requirements"></a>
 ## Requirements
