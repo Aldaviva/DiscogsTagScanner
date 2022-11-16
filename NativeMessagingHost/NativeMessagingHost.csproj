@@ -14,8 +14,8 @@
 		<Authors>Ben Hutchison</Authors>
 		<AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
 		<Product>DiscogsTagScanner</Product> <!-- Product name -->
-		<Version>0.0.1</Version> <!-- Product version -->
-		<FileVersion>0.0.1.0</FileVersion> <!-- File version -->
+		<Version>0.0.2</Version> <!-- Product version -->
+		<FileVersion>0.0.2.0</FileVersion> <!-- File version -->
 	</PropertyGroup>
 
 	<ItemGroup>

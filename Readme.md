@@ -24,7 +24,7 @@ This browser extension and native program help you quickly load Discogs releases
 
 |Discogs||TagScanner|
 |:---:|:---:|:---:|
-|<img src="https://i.imgur.com/ClZodn1.png" />|<h3>&#8680;</h3>|<img src="https://i.imgur.com/x13AyRC.png" />|
+|<img src="https://i.imgur.com/B2AmvNj.png" />|<h3>&#8680;</h3>|<img src="https://i.imgur.com/x13AyRC.png" />|
 |Click the new **<img src="icons/16.png" height="16" /> Send to TagScanner** button||The release loads in the Online pane|
 
 <a id="requirements"></a>

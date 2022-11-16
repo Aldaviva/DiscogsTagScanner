@@ -1,7 +1,7 @@
 {
 	"name": "Discogs TagScanner",
 	"description": "Send a Discogs release's ID to the currently open TagScanner window's Online tab.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"manifest_version": 3,
 	"author": "Ben Hutchison",
 	"content_scripts": [
