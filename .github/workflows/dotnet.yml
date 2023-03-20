@@ -11,13 +11,11 @@ jobs:
       ProjectName: NativeMessagingHost
       TargetPlatform: win-x64
 
-    environment: Build
-
     runs-on: windows-latest
 
     steps:
     - name: Clone
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.4.0
     
     - name: Restore native messaging host
       run: dotnet restore --runtime ${{ env.TargetPlatform }} --locked-mode --verbosity normal
@@ -40,7 +38,7 @@ jobs:
         Move-Item -Path .\Extension\src.crx -Destination "${{ env.ProjectName }}\bin\Release\net6.0-windows\${{ env.TargetPlatform }}\publish\DiscogsTagScanner.crx" -Force
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: DiscogsTagScanner
         path: |

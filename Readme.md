@@ -1,7 +1,7 @@
 <img src="Extension/src/images/24.png" height="24" /> DiscogsTagScanner
 ===
 
-[![Build status](https://img.shields.io/github/workflow/status/Aldaviva/DiscogsTagScanner/.NET?logo=github)](https://github.com/Aldaviva/DiscogsTagScanner/actions/workflows/dotnet.yml)
+[![Build status](https://img.shields.io/github/actions/workflow/status/Aldaviva/DiscogsTagScanner/dotnet.yml?branch=master&logo=github)](https://github.com/Aldaviva/DiscogsTagScanner/actions/workflows/dotnet.yml)
 
 [<img src="https://www.discogs.com/favicon.ico" height="16"/> Discogs](https://www.discogs.com/) is an online database of music release metadata. [<img src="https://www.xdlab.ru/favicon.ico" height="16"/> TagScanner](https://www.xdlab.ru/en/) is a program that edits music file metadata.
 
@@ -24,7 +24,7 @@ This browser extension and native program help you quickly load Discogs releases
 
 |Discogs||TagScanner|
 |:---:|:---:|:---:|
-|<img src="https://i.imgur.com/B2AmvNj.png" />|<h3>&#8680;</h3>|<img src="https://i.imgur.com/x13AyRC.png" />|
+|<img src=".github/images/discogs.png" />|<h3>&#8680;</h3>|<img src=".github/images/tagscanner.png" />|
 |Click the new **<img src="icons/16.png" height="16" /> Send to TagScanner** button||The release loads in the Online pane|
 
 <a id="requirements"></a>
@@ -38,10 +38,12 @@ This browser extension and native program help you quickly load Discogs releases
 <a id="installation"></a>
 ## Installation
 
+You must install both the browser extension and the native program.
+
 <a id="browser-extension"></a>
 ### Browser extension
 
-1. Download `DiscogsTagScanner.crx` from the [latest release](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest).
+1. Download [`DiscogsTagScanner.crx`](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest/download/DiscogsTagScanner.crx) from the [latest release](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest).
 1. In your browser, open the Extensions page by going to `chrome://extensions/`.
 1. Temporarily enable **Developer mode**.
 1. Drag and drop `DiscogsTagScanner.crx` into the Extensions page.
@@ -52,14 +54,14 @@ This browser extension and native program help you quickly load Discogs releases
 <a id="native-program"></a>
 ### Native program
 
-1. Download `NativeMessagingHost.exe` from the [latest release](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest) and save it somewhere, such as `C:\Program Files\DiscogsTagScanner\NativeMessagingHost.exe`.
+1. Download [`NativeMessagingHost.exe`](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest/download/NativeMessagingHost.exe) from the [latest release](https://github.com/Aldaviva/DiscogsTagScanner/releases/latest) and save it somewhere, such as `C:\Program Files\DiscogsTagScanner\NativeMessagingHost.exe`.
 1. Run `NativeMessagingHost.exe` once, which registers the native messaging host with Chromium-based browsers on your computer.
 
 <a id="usage"></a>
 ## Usage
 1. Open TagScanner and highlight the files you want to edit.
-1. Go to the Discogs release page of the files' release.
-1. At the top of the right column, next to the **Release** heading, click **<img src="Extension/src/images/48.png" height="16" /> Send to TagScanner**.
+1. Go to the Discogs release page of the files' release in your browser.
+1. At the top of the right column, next to the **Release** heading, click **<img src="icons/16.png" height="16" /> Send to TagScanner**.
     - TagScanner will load the Discogs release in the Online pane. You can click the **Preview** button to see the pending changes.
 1. Click the **Save** button to write the changes to the files.
 
