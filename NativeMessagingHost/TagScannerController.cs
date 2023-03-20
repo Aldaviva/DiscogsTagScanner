@@ -2,8 +2,10 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
+using System.Windows.Forms;
 using ManagedWinapi.Windows;
 using Microsoft.Win32;
+using SimWinInput;
 
 namespace NativeMessagingHost;
 
@@ -57,6 +59,15 @@ public class TagScannerController {
         // Submit search
         IntPtr onlineSearchButton = findDescendantElementByIndex(onlinePane, 3, 2)?.toHwnd() ?? throw new ElementNotFound("Could not find online submit button");
         postClick(onlineSearchButton);
+
+        // Focus results list
+        Thread.Sleep(1000); // don't know how to tell when the results have loaded
+        AutomationElement resultsList = findDescendantElementByIndex(onlinePane, 2) ?? throw new ElementNotFound("Could not find online results list");
+        resultsList.SetFocus();
+
+        // Expand first result
+        // https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+        SimKeyboard.Press((byte) Keys.Right);
     }
 
     private static AutomationElement? findDescendantElementByIndex(AutomationElement ancestor, params int[] childIndices) {

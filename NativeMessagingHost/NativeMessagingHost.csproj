@@ -1,34 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<RollForward>major</RollForward>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<ApplicationIcon>DiscogsTagScanner.ico</ApplicationIcon>
-		<Copyright>© 2022 Ben Hutchison</Copyright>
-		<Authors>Ben Hutchison</Authors>
-		<AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
-		<Product>DiscogsTagScanner</Product> <!-- Product name -->
-		<Version>0.0.2</Version> <!-- Product version -->
-		<FileVersion>0.0.2.0</FileVersion> <!-- File version -->
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <RollForward>major</RollForward>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <ApplicationIcon>DiscogsTagScanner.ico</ApplicationIcon>
+        <Authors>Ben Hutchison</Authors>
+        <Copyright>© 2023 $(Authors)</Copyright>
+        <AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
+        <Version>0.0.3</Version> <!-- Product version -->
+        <Product>$(AssemblyTitle)</Product> <!-- Product name -->
+        <FileVersion>$(Version)</FileVersion> <!-- File version -->
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Content Include="DiscogsTagScanner.ico" />
-	</ItemGroup>
+    <ItemGroup>
+        <Content Include="DiscogsTagScanner.ico" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.WindowsDesktop.App" /> <!-- UseWindowsForms is insufficient to refer to UIAutomationClient -->
-	</ItemGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.WindowsDesktop.App" /> <!-- UseWindowsForms is insufficient to refer to UIAutomationClient -->
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Foregrounder" Version="0.0.1" />
-		<PackageReference Include="mwinapi" Version="0.3.0.5" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Foregrounder" Version="0.0.1" />
+        <PackageReference Include="mwinapi" Version="0.3.0.5" />
+        <PackageReference Include="SimWinKeyboard" Version="1.0.2" />
+    </ItemGroup>
 
 </Project>
