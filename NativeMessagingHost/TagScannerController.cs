@@ -5,7 +5,6 @@ using System.Windows.Automation;
 using System.Windows.Forms;
 using ManagedWinapi.Windows;
 using Microsoft.Win32;
-using SimWinInput;
 
 namespace NativeMessagingHost;
 
@@ -37,10 +36,17 @@ public class TagScannerController {
         Foregrounder.Foregrounder.BringToForeground(tMain);
 
         // Click Online tab
-        IntPtr onlineTab = findDescendantElementByIndex(tMain, 4, 0, 0)?.toHwnd() ?? throw new ElementNotFound("Could not find Online tab");
-        postClick(onlineTab);
+        AutomationElement onlineTab = findDescendantElementByIndex(tMain, 2, 3, 0) ?? throw new ElementNotFound("Could not find Online tab");
+        if (onlineTab.Current.Name.Trim() == "ONLINE") {
+            postClick(onlineTab.toHwnd());
+        } else {
+            throw new ElementNotFound($"Online tab has the wrong name ({onlineTab.Current.Name}), the UI hierarchy may have changed");
+        }
 
-        AutomationElement onlinePane = findDescendantElementByIndex(tMain, 5, 0, 0) ?? throw new ElementNotFound("Could not find Online panel");
+        AutomationElement onlinePane = findDescendantElementByIndex(tMain, 3, 0, 0) ?? throw new ElementNotFound("Could not find Online panel");
+        if (onlinePane.Current.Name.Trim() != "Onlie results") { //sic
+            throw new ElementNotFound($"Online panel has the wrong name ({onlinePane.Current.Name}), the UI hierarchy may have changed");
+        }
 
         // If service dropdown value does not match requested service, change it
         AutomationElement serviceDropdown = findDescendantElementByIndex(onlinePane, 1, 0) ?? throw new ElementNotFound("Could not find service dropdown");
@@ -66,14 +72,18 @@ public class TagScannerController {
         resultsList.SetFocus();
 
         // Expand first result
-        // https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-        SimKeyboard.Press((byte) Keys.Right);
+        sendKeyboardPress(Keys.Right);
     }
 
     private static AutomationElement? findDescendantElementByIndex(AutomationElement ancestor, params int[] childIndices) {
+        // ReSharper disable once RedundantLambdaParameterType - preserving nullable type prevents null return warnings in method
         return childIndices.Aggregate(ancestor, (AutomationElement? parent, int childIndex) => {
             AutomationElementCollection? children = parent?.FindAll(TreeScope.Children, Condition.TrueCondition);
-            return children?.Cast<AutomationElement>().ElementAtOrDefault((childIndex + children.Count) % children.Count);
+            if (children is null || children.Count == 0) {
+                return null;
+            }
+
+            return children.Cast<AutomationElement>().ElementAtOrDefault((childIndex + children.Count) % children.Count);
         });
     }
 
@@ -88,6 +98,16 @@ public class TagScannerController {
         if (!PostMessage(window, WM_LBUTTONUP, 0, 0)) {
             throw new MessagePostException($"Failed to post WM_LBUTTONUP to {window.ToInt64():X}", new Win32Exception(Marshal.GetLastWin32Error()));
         }
+    }
+
+    /// <summary>
+    /// Send key down and key up to active window
+    /// </summary>
+    /// <param name="key">https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes</param>
+    private static void sendKeyboardPress(Keys key) {
+        keybd_event((byte) key, 0, 0, 0);
+        Thread.Sleep(10);
+        keybd_event((byte) key, 0, 2, 0);
     }
 
     /// <exception cref="StartException"></exception>
@@ -108,5 +128,8 @@ public class TagScannerController {
     [DllImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
+
+    [DllImport("User32.dll")]
+    private static extern void keybd_event(byte virtualKeyCode, byte hardwareScanCode, uint flags, int extra);
 
 }

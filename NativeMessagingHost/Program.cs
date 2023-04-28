@@ -38,6 +38,8 @@ try {
     tagScannerController.searchForOnlineRelease(request.service, request.releaseId);
 } catch (TagScannerException e) {
     errorMessage = string.Join(": ", new[] { e.GetType().Name, e.Message, e.InnerException?.ToString() }.Where(s => s != null));
+} catch (Exception e) when (e is not OutOfMemoryException) {
+    errorMessage = $"Uncaught exception: {e}";
 }
 
 MessagingHost.writeOutputToBrowser(new ExtensionResponse(errorMessage));

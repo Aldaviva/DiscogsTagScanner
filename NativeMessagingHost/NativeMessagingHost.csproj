@@ -13,7 +13,7 @@
         <Authors>Ben Hutchison</Authors>
         <Copyright>© 2023 $(Authors)</Copyright>
         <AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
-        <Version>0.0.3</Version> <!-- Product version --> <!-- Remember to also update manifest.json -->
+        <Version>0.0.4</Version> <!-- Product version --> <!-- Remember to also update manifest.json -->
         <Product>$(AssemblyTitle)</Product> <!-- Product name -->
         <FileVersion>$(Version)</FileVersion> <!-- File version -->
     </PropertyGroup>
@@ -29,7 +29,6 @@
     <ItemGroup>
         <PackageReference Include="Foregrounder" Version="0.0.1" />
         <PackageReference Include="mwinapi" Version="0.3.0.5" />
-        <PackageReference Include="SimWinKeyboard" Version="1.0.2" />
     </ItemGroup>
 
 </Project>
