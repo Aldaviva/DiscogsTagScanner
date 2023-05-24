@@ -9,9 +9,15 @@ chrome.runtime.onMessage.addListener((messageFromPage, sender, sendResponseToPag
 		};
 
 		console.info(`Sending Discogs release ${releaseId} to TagScanner`, messageToNative);
-		chrome.runtime.sendNativeMessage(NATIVE_MSG_HOST_FQDN, messageToNative, response => {
-			console.info("Received response from native messaging host", response);
-			const pageResponse = { error: response.error };
+		chrome.runtime.sendNativeMessage(NATIVE_MSG_HOST_FQDN, messageToNative, nativeResponse => {
+			let pageResponse = { error: null };
+			if(nativeResponse){
+				console.info("Received response from native messaging host", nativeResponse);
+				pageResponse.error = nativeResponse.error;
+			} else {
+				pageResponse.error = chrome.runtime.lastError.message;
+			}
+			
 			console.debug("Sending response to page:", pageResponse);
 			sendResponseToPage(pageResponse);
 		});

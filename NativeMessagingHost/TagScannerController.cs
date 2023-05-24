@@ -10,10 +10,10 @@ namespace NativeMessagingHost;
 
 public class TagScannerController {
 
-    private const string INSTALLATION_KEY = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TagScanner_is1";
-    private const uint   WM_LBUTTONUP     = 0x0202;
-    private const uint   WM_LBUTTONDOWN   = 0x0201;
-    private const uint   MK_LBUTTON       = 0x0001;
+    private const string UNINSTALL_KEY  = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+    private const uint   WM_LBUTTONUP   = 0x0202;
+    private const uint   WM_LBUTTONDOWN = 0x0201;
+    private const uint   MK_LBUTTON     = 0x0001;
 
     private readonly AutomationElement tMain;
 
@@ -105,31 +105,37 @@ public class TagScannerController {
     /// </summary>
     /// <param name="key">https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes</param>
     private static void sendKeyboardPress(Keys key) {
-        keybd_event((byte) key, 0, 0, 0);
+        sendKeyboardEvent((byte) key, 0, 0, 0);
         Thread.Sleep(10);
-        keybd_event((byte) key, 0, 2, 0);
+        sendKeyboardEvent((byte) key, 0, 2, 0);
     }
 
     /// <exception cref="StartException"></exception>
     public static int launch() {
         // The DisplayIcon value is the absolute path to the EXE, e.g. "C:\Programs\Multimedia\TagScanner\Tagscan.exe"
-        if (Registry.GetValue(INSTALLATION_KEY, "DisplayIcon", null) is string exeAbsolutePath && File.Exists(exeAbsolutePath)) {
-            try {
-                using Process process = Process.Start(exeAbsolutePath);
-                return process.Id;
-            } catch (Win32Exception e) {
-                throw new StartException("TagScanner was not already running, and it could not be started by running " + exeAbsolutePath, e);
+        using RegistryKey? uninstallKey               = Registry.LocalMachine.OpenSubKey(UNINSTALL_KEY);
+        string?            tagScannerUninstallKeyName = uninstallKey?.GetSubKeyNames().LastOrDefault(key => key.StartsWith("TagScanner "));
+        if (tagScannerUninstallKeyName is not null && uninstallKey?.OpenSubKey(tagScannerUninstallKeyName) is { } tagScannerUninstallKey) {
+            using (tagScannerUninstallKey) {
+                if (tagScannerUninstallKey.GetValue("DisplayIcon") is string exeAbsolutePath && File.Exists(exeAbsolutePath)) {
+                    try {
+                        using Process process = Process.Start(exeAbsolutePath);
+                        return process.Id;
+                    } catch (Win32Exception e) {
+                        throw new StartException("TagScanner was not already running, and it could not be started by running " + exeAbsolutePath, e);
+                    }
+                }
             }
-        } else {
-            throw new StartException("TagScanner was not already running, and could not find installation directory in registry key " + INSTALLATION_KEY);
         }
+
+        throw new StartException("TagScanner was not already running, and could not find installation directory in registry key " + (uninstallKey?.Name ?? UNINSTALL_KEY));
     }
 
     [DllImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
 
-    [DllImport("User32.dll")]
-    private static extern void keybd_event(byte virtualKeyCode, byte hardwareScanCode, uint flags, int extra);
+    [DllImport("User32.dll", EntryPoint = "keybd_event")]
+    private static extern void sendKeyboardEvent(byte virtualKeyCode, byte hardwareScanCode, uint flags, int extra);
 
 }

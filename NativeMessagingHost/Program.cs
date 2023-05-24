@@ -31,7 +31,7 @@ try {
         TagScannerController.launch();
 
         //retry once after launching
-        Thread.Sleep(3000);
+        Thread.Sleep(2000);
         tagScannerController = new TagScannerController();
     }
 
