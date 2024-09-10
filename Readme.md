@@ -31,7 +31,7 @@ This browser extension and native program help you quickly load Discogs releases
 ## Requirements
 
 - Windows
-- [.NET Desktop Runtime 6 x64 for Windows](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime?initial-os=windows) or later
+- [.NET Desktop Runtime 8 x64 for Windows](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) or later
 - Chromium-based browser, such as [Vivaldi](https://vivaldi.com/download/) or [Chrome](https://www.google.com/chrome/)
 - [TagScanner](https://www.xdlab.ru/en/download.htm)
 
