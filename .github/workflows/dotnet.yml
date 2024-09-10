@@ -9,22 +9,23 @@ jobs:
   build:
     env:
       ProjectName: NativeMessagingHost
+      TargetRuntime: net8.0-windows
       TargetPlatform: win-x64
 
     runs-on: windows-latest
 
     steps:
     - name: Clone
-      uses: actions/checkout@v3.4.0
+      uses: actions/checkout@v4
     
     - name: Restore native messaging host
       run: dotnet restore --runtime ${{ env.TargetPlatform }} --locked-mode --verbosity normal
 
     - name: Build native messaging host
-      run: dotnet build ${{ env.ProjectName }} --no-restore --runtime ${{ env.TargetPlatform }} --configuration Release --no-self-contained --verbosity normal
+      run: dotnet build ${{ env.ProjectName }} --no-restore --framework ${{ env.TargetRuntime }} --runtime ${{ env.TargetPlatform }} --configuration Release --no-self-contained --verbosity normal
 
     - name: Publish native messaging host
-      run: dotnet publish ${{ env.ProjectName }} --no-build --configuration Release -p:PublishSingleFile=true --runtime ${{ env.TargetPlatform }} --no-self-contained
+      run: dotnet publish ${{ env.ProjectName }} --no-build --configuration Release -p:PublishSingleFile=true --framework ${{ env.TargetRuntime }} --runtime ${{ env.TargetPlatform }} --no-self-contained
       
     - name: Install Vivaldi
       run: choco install vivaldi.portable -y
@@ -35,13 +36,13 @@ jobs:
     - name: Pack extension
       run: |
         Start-Process -FilePath "$env:LOCALAPPDATA\Vivaldi\Application\vivaldi.exe" -ArgumentList @('--pack-extension="${{ github.workspace }}\Extension\src"', '--pack-extension-key="${{ github.workspace }}\Extension\PackExtensionPrivateKey.pem"') -Wait
-        Move-Item -Path .\Extension\src.crx -Destination "${{ env.ProjectName }}\bin\Release\net6.0-windows\${{ env.TargetPlatform }}\publish\DiscogsTagScanner.crx" -Force
+        Move-Item -Path .\Extension\src.crx -Destination "${{ env.ProjectName }}\bin\Release\${{ env.TargetRuntime }}\${{ env.TargetPlatform }}\publish\DiscogsTagScanner.crx" -Force
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: DiscogsTagScanner
         path: |
-          ${{ env.ProjectName }}\bin\Release\net6.0-windows\${{ env.TargetPlatform }}\publish\*.exe
-          ${{ env.ProjectName }}\bin\Release\net6.0-windows\${{ env.TargetPlatform }}\publish\*.crx
+          ${{ env.ProjectName }}\bin\Release\${{ env.TargetRuntime }}\${{ env.TargetPlatform }}\publish\*.exe
+          ${{ env.ProjectName }}\bin\Release\${{ env.TargetRuntime }}\${{ env.TargetPlatform }}\publish\*.crx
         if-no-files-found: error
