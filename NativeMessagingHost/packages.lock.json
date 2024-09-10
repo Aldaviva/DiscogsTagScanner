@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net6.0-windows7.0": {
+    "net8.0-windows7.0": {
       "Foregrounder": {
         "type": "Direct",
         "requested": "[0.0.1, )",
@@ -31,7 +31,7 @@
         }
       }
     },
-    "net6.0-windows7.0/win-x64": {
+    "net8.0-windows7.0/win-x64": {
       "System.Management": {
         "type": "Transitive",
         "resolved": "6.0.0",

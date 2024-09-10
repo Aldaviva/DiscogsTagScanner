@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
+﻿using ManagedWinapi.Windows;
+using Microsoft.Win32;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using ManagedWinapi.Windows;
-using Microsoft.Win32;
 
 namespace NativeMessagingHost;
 
@@ -114,7 +114,7 @@ public class TagScannerController {
     public static int launch() {
         // The DisplayIcon value is the absolute path to the EXE, e.g. "C:\Programs\Multimedia\TagScanner\Tagscan.exe"
         using RegistryKey? uninstallKey               = Registry.LocalMachine.OpenSubKey(UNINSTALL_KEY);
-        string?            tagScannerUninstallKeyName = uninstallKey?.GetSubKeyNames().LastOrDefault(key => key.StartsWith("TagScanner "));
+        string?            tagScannerUninstallKeyName = uninstallKey?.GetSubKeyNames().LastOrDefault(key => key.StartsWith("TagScanner"));
         if (tagScannerUninstallKeyName is not null && uninstallKey?.OpenSubKey(tagScannerUninstallKeyName) is { } tagScannerUninstallKey) {
             using (tagScannerUninstallKey) {
                 if (tagScannerUninstallKey.GetValue("DisplayIcon") is string exeAbsolutePath && File.Exists(exeAbsolutePath)) {

@@ -2,18 +2,18 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <RollForward>major</RollForward>
+        <RollForward>latestMajor</RollForward>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <ApplicationIcon>DiscogsTagScanner.ico</ApplicationIcon>
         <Authors>Ben Hutchison</Authors>
-        <Copyright>© 2023 $(Authors)</Copyright>
+        <Copyright>© 2024 $(Authors)</Copyright>
         <AssemblyTitle>DiscogsTagScanner</AssemblyTitle> <!-- File description -->
-        <Version>0.0.5</Version> <!-- Product version --> <!-- Remember to also update manifest.json -->
+        <Version>0.0.6</Version> <!-- Product version --> <!-- Remember to also update manifest.json -->
         <Product>$(AssemblyTitle)</Product> <!-- Product name -->
         <FileVersion>$(Version)</FileVersion> <!-- File version -->
     </PropertyGroup>

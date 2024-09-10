@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Win32;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Win32;
 
 namespace NativeMessagingHost;
 
@@ -84,8 +83,7 @@ public static class MessagingHost {
     }
 
     private static string getCurrentExeAbsolutePath() {
-        using Process currentProcess = Process.GetCurrentProcess();
-        return currentProcess.MainModule!.FileName!;
+        return Environment.ProcessPath!;
     }
 
 }
