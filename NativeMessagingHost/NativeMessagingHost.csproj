@@ -28,7 +28,7 @@
 
     <ItemGroup>
         <PackageReference Include="Foregrounder" Version="0.0.1" />
-        <PackageReference Include="mwinapi" Version="0.3.0.5" />
+        <PackageReference Include="mwinapi" Version="0.3.0.6" />
     </ItemGroup>
 
 </Project>
